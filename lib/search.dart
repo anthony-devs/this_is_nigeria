@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 final CollectionReference _products =
     FirebaseFirestore.instance.collection('stories');
@@ -35,7 +34,10 @@ class Searched extends StatelessWidget {
             List<DocumentSnapshot> results = [];
 
             for (var documentSnapshot in streamSnapshot.data!.docs) {
-              if (documentSnapshot['title'].toString().toLowerCase().contains(query.toLowerCase())) {
+              if (documentSnapshot['title']
+                  .toString()
+                  .toLowerCase()
+                  .contains(query.toLowerCase())) {
                 results.add(documentSnapshot);
               }
             }
@@ -60,7 +62,8 @@ class Searched extends StatelessWidget {
                             builder: (BuildContext context) => Scaffold(
                               appBar: AppBar(
                                 elevation: 0,
-                                backgroundColor: Color.fromARGB(255, 29, 29, 29),
+                                backgroundColor:
+                                    Color.fromARGB(255, 29, 29, 29),
                               ),
                               body: Center(
                                 child: Padding(
@@ -167,7 +170,6 @@ class Searched extends StatelessWidget {
   }
 }
 
-
 class Search extends StatelessWidget {
   Search({Key? key});
 
@@ -182,16 +184,19 @@ class Search extends StatelessWidget {
         hintText: 'Search...',
         hintStyle: GoogleFonts.poppins(color: Colors.white),
         suffixIcon: IconButton(
-          icon: Icon(Icons.search, color: Colors.green,),
+          icon: Icon(
+            Icons.search,
+            color: Colors.green,
+          ),
           onPressed: () {
             Navigator.push(
-                  context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) => Searched(
-                      query: _searchController.text,
-                    ),
-                  ),
-                );
+              context,
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => Searched(
+                  query: _searchController.text,
+                ),
+              ),
+            );
           },
         ),
       ),

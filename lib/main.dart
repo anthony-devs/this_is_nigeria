@@ -4,16 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:this_is_nigeria/search.dart';
 import 'package:this_is_nigeria/stories.dart';
 import 'firebase_options.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
-  
 }
 
 class MyApp extends StatelessWidget {
@@ -35,7 +32,6 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
-        
       ),
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: "Today's Happenings"),
@@ -62,10 +58,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   bool isSearching = true;
-  
-  
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -75,33 +69,50 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 0, 10, 19),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: isSearching ? Text('Stories', style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white)) : Search(),
-                ),
-        leading: isSearching ? IconButton(icon: Icon(Icons.search, color: Colors.white,), onPressed: () {setState(() {
-          isSearching = !isSearching;
-        });},) : IconButton(icon: Icon(Icons.close), onPressed: () {setState(() {
-          isSearching = !isSearching;
-        });}),
-        elevation: 0,
-      ),
-
-      body: Center(
-        child:
-            
-            ListView(
-              children: [
-                SizedBox(height: 50,),
-                
-                
-                Stories(),
-              ],
-            ),
-      ) // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        backgroundColor: Color.fromARGB(255, 0, 10, 19),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: isSearching
+                ? Text('Stories',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                        color: Colors.white))
+                : Search(),
+          ),
+          leading: isSearching
+              ? IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isSearching = !isSearching;
+                    });
+                  },
+                )
+              : IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    setState(() {
+                      isSearching = !isSearching;
+                    });
+                  }),
+          elevation: 0,
+        ),
+        body: Center(
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 50,
+              ),
+              Stories(),
+            ],
+          ),
+        ) // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 }
